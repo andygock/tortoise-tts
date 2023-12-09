@@ -50,15 +50,30 @@ will spend a lot of time chasing dependency problems.
 
 First, install miniconda: https://docs.conda.io/en/latest/miniconda.html
 
+Add these required 4.2GB of models into `.models/` from [HuggingFace](https://huggingface.co/jbetker/tortoise-tts-v2/tree/main/.models) either manually or via this series of wget commands:
+
+```shell
+mkdir .models
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/autoregressive.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/classifier.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/clvp2.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/cvvp.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/diffusion_decoder.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/vocoder.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/rlg_auto.pth"
+wget -nc -P .models/ "https://huggingface.co/jbetker/tortoise-tts-v2/resolve/main/.models/rlg_diffuser.pth"
+wget -nc -P .models/ "https://huggingface.co/Manmay/tortoise-tts/resolve/main/hifidecoder.pth"
+```
+
 Then run the following commands, using anaconda prompt as the terminal (or any other terminal configured to work with conda)
 
 This will:
 1. create conda environment with minimal dependencies specified
-1. activate the environment
-1. install pytorch with the command provided here: https://pytorch.org/get-started/locally/
-1. clone tortoise-tts
-1. change the current directory to tortoise-tts
-1. run tortoise python setup install script
+2. activate the environment
+3. install pytorch with the command provided here: https://pytorch.org/get-started/locally/
+4. clone tortoise-tts
+5. change the current directory to tortoise-tts
+6. run tortoise python setup install script, replace `pytorch-cuda=11.7` with your version of CUDA.
 
 ```shell
 conda create --name tortoise python=3.9 numba inflect
@@ -74,7 +89,10 @@ Optionally, pytorch can be installed in the base environment, so that other cond
 
 > **Note:** When you want to use tortoise-tts, you will always have to ensure the `tortoise` conda environment is activated.
 
-If you are on windows, you may also need to install pysoundfile: `conda install -c conda-forge pysoundfile`
+If you are on Windows
+
+- you may also need to install pysoundfile: `conda install -c conda-forge pysoundfile`
+- use `start_conda_env.cmd` to automatically open a command terminal. It will activate the conda environment and set up environment variables for you. If you have [ConEmu](https://conemu.github.io/) installed and ConEmu64.exe is in your PATH, it will open a ConEmu terminal instead of the default windows terminal.
 
 ### Docker
 
